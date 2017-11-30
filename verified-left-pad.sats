@@ -40,7 +40,7 @@ fun left_pad {input : int_list} {count : int} {el : int} {l : addr}
       , int_list_append (pad, input, output)
       , word8_known_array (output, l')
       , mfree_gc_v (l')
-      | ptr l
+      | ptr l'
       )
 
 (* TODO can we parameterize over an allocation function + view? *)
