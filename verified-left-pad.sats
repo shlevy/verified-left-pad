@@ -8,8 +8,9 @@ dataprop int_list_append (int_list, int_list, int_list)
   = {is : int_list} int_list_append_base (int_list_nil, is, is)
   | {hd : int} {in_tl : int_list} {is : int_list} {out_tl : int_list}
       int_list_append_recurse ( int_list_cons (hd, in_tl)
-                              , is, int_list_cons (hd, out_tl)
-			      ) of int_list_append (in_tl, is, out_tl)
+                              , is
+                              , int_list_cons (hd, out_tl)
+                              ) of int_list_append (in_tl, is, out_tl)
 
 (* TODO prove int_list_append is a total function *)
 
@@ -30,7 +31,7 @@ dataview word8_known_array
     | {l : addr} word8_known_array_nil (int_list_nil, l)
     | {l : addr} {w : int8} {ws : int_list}
         word8_known_array_cons (int_list_cons (w, ws), l) of
-	  (char (w) @ l, word8_known_array (ws, l + sizeof(char (w))))
+          (char (w) @ l, word8_known_array (ws, l + sizeof(char (w))))
 
 (* Left-pad the input array with count instances of el *)
 fun left_pad {input : int_list} {count : int} {el : int} {l : addr}
