@@ -12,7 +12,13 @@ dataprop int_list_append (int_list, int_list, int_list)
                               , int_list_cons (hd, out_tl)
                               ) of int_list_append (in_tl, is, out_tl)
 
-(* TODO prove int_list_append is a total function *)
+prfun int_list_append_function {is1, is2, out1, out2 : int_list}
+  ( int_list_append (is1, is2, out1)
+  , int_list_append (is1, is2, out2)
+  ) : [out1==out2] void
+
+prfun int_list_append_total {is1, is2 : int_list} :
+  [out : int_list] int_list_append (is1, is2, out)
 
 (* Repeat an int a given number of times into a list of ints *)
 dataprop int_list_repeat (int (* element *), int (* count *), int_list)
@@ -21,7 +27,14 @@ dataprop int_list_repeat (int (* element *), int (* count *), int_list)
       int_list_repeat_recurse (e, n + 1, int_list_cons (e, out_tl)) of
         int_list_repeat (e, n, out_tl)
 
-(* TODO prove repeat is a total function *)
+prfun int_list_repeat_function
+  {el, count : int} {out1, out2 : int_list}
+    ( int_list_repeat (el, count, out1)
+    , int_list_repeat (el, count, out2)
+    ) : [out1==out2] void
+
+prfun int_list_repeat_total
+  {el, count : int} : [out : int_list] int_list_repeat (el, count, out)
 
 (* An array of word8s whose entire contents are known statically *)
 dataview word8_known_array
